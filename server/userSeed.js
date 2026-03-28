@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import User from './models/User.js';
 
 const connectToDatabase = async () => {
+    // eslint-disable-next-line no-undef
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected!');
 }
@@ -20,9 +21,7 @@ const userRegister = async () => {
         await newUser.save();
     } catch(error) {
         console.log(error);
-    } finally {
-        await mongoose.connection.close();
-    }
+    } 
 }
 
 userRegister();
