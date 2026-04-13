@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-
+import axios from 'axios';
 const userContext = createContext()
 const authContext = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -22,18 +22,19 @@ const authContext = ({ children }) => {
                     if (response.data.success) {
                         setUser(response.data.user)
                     }
+                    console.log(response)
 
                 } else {
                     setUser(null)
+                    setLoading(false)
 
                 }
 
-            } catch (e) {
+            } catch (e) {console.log(e)
                 if (e.response && !e.response.data.success) {
                     setUser(null)
                 }
-            }
-            finally {
+            } finally {
                 setLoading(false)
             }
         }
