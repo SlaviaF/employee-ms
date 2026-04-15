@@ -10,33 +10,52 @@ const DepartmentList = () => {
     const [departments, setDepartments] = useState([])
     const [depLoading, setDepLoading] = useState(false)
 
-    useEffect(() => {
-        const fetchDepartments = async () => {
-            setDepLoading(true)
-            try {
-                const response = await axios.get('http://localhost:3000/api/department', {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    }
-                })
-                if (response.data.success) {
-                    let sno = 1
-                    const data = response.data.departments.map((dep) => ({  // ← removed unnecessary await
-                        _id: dep._id,
-                        sno: sno++,
-                        dep_name: dep.dep_name,
-                        actions: (<DepartmentButtons/>)
-                    }))
-                    setDepartments(data)
+    const fetchDepartments = async () => {
+        setDepLoading(true)
+        try {
+            const response = await axios.get('http://localhost:3000/api/department', {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
-            } catch (error) {
-                if (error.response && !error.response.data.success) {
-                    alert(error.response.data.error)
+            })
+            if (response.data.success) {
+                let sno = 1
+                const data = response.data.departments.map((dep) => ({
+                    _id: dep._id,
+                    sno: sno++,
+                    dep_name: dep.dep_name,
+                    actions: (<DepartmentButtons _id={dep._id} onDeleteClick={handleDelete}/>)
+                }))
+                setDepartments(data)
+            }
+        } catch (error) {
+            if (error.response && !error.response.data.success) {
+                alert(error.response.data.error)
+            }
+        } finally {
+            setDepLoading(false)
+        }
+    }
+
+    const handleDelete = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this department?')) return
+        try {
+            const response = await axios.delete(`http://localhost:3000/api/department/${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
-            } finally {
-                setDepLoading(false)
+            })
+            if (response.data.success) {
+                fetchDepartments()
+            }
+        } catch (error) {
+            if (error.response && !error.response.data.success) {
+                alert(error.response.data.error)
             }
         }
+    }
+
+    useEffect(() => {
         fetchDepartments()
     }, [])
 

@@ -6,6 +6,7 @@ import RoleBaseRoutes from './utils/RoleBaseRoutes'
 import AdminSummary from './components/dashboard/AdminSummary'
 import AddDepartment from './components/departments/AddDepartment'
 import DepartmentList from './components/departments/DepartmentList'
+import EditDepartment from './components/departments/EditDepartment'
 
 
 
@@ -25,6 +26,7 @@ function App() {
           <Route index element={<AdminSummary />}></Route>
            <Route path="/admin-dashboard/departments" element={<DepartmentList />}></Route>
            <Route path="/admin-dashboard/add-department" element={<AddDepartment />}></Route>
+           <Route path="/admin-dashboard/department/:id" element={<EditDepartment />}></Route>
 
         </Route>
 
