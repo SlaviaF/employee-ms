@@ -14,7 +14,7 @@ const DepartmentList = () => {
         const fetchDepartments = async () => {
             setDepLoading(true)
             try {
-                const response = await axios.get('http://localhost:5000/api/department', {
+                const response = await axios.get('http://localhost:3000/api/department', {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
@@ -47,7 +47,7 @@ const DepartmentList = () => {
                     <div className='text-center'>
                         <h3 className='text-2xl font-bold'>Manage Departments</h3>
                     </div>
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between items-center'>
                         <input type="text" placeholder='Search by Dep name' className="px-4 py-0.5" />
                         <Link to="/admin-dashboard/add-department" className='px-4 py-1 bg-blue-900 rounded text-white'>
                             Add New Department

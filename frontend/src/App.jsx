@@ -23,8 +23,8 @@ function App() {
           </PrivateRoutes>
         }>
           <Route index element={<AdminSummary />}></Route>
-           <Route path="/admin-dashboard/departments" element={<DepartmentList/>}></Route>
-           <Route path="/admin-dashboard/add-department" element={<AddDepartment/>}></Route>
+           <Route path="/admin-dashboard/departments" element={<DepartmentList />}></Route>
+           <Route path="/admin-dashboard/add-department" element={<AddDepartment />}></Route>
 
         </Route>
 
